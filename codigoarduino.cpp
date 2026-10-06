@@ -50,6 +50,20 @@ void loop() {
         digitalWrite(led3, LOW);
         Serial.println("LED 3 AZUL apagado");
         break;
+
+        // LED 1 , 2 y 3
+      case 'd':
+        digitalWrite(led1, HIGH);
+        digitalWrite(led2, HIGH);
+        digitalWrite(led3, HIGH);
+        Serial.println("LED 1, 2 y 3 AZUL encendido");
+        break;
+      case 'D':
+        digitalWrite(led1, LOW);
+        digitalWrite(led2, LOW);
+        digitalWrite(led3, LOW);
+        Serial.println("LED 1, 2 y 3 AZUL apagado");
+        break;
         
       // Comandos no reconocidos (ignora saltos de línea \n y \r)
       default:

@@ -6,7 +6,7 @@ from unittest.mock import MagicMock  # Permite simular el puerto serie sin Ardui
 
 MODO_SIMULACION = True  # <Cambia a False cuando conectemos el Arduino real
 
-puertoCom = "COM5" 
+puertoCom = "COM6" 
 
 if not MODO_SIMULACION:
     #YA TENÍAMOS
@@ -35,7 +35,7 @@ else:
 #YA TENÍAMOS
 ventana = tk.Tk()
 ventana.title("Control de LEDs")
-ventana.geometry("300x260")
+ventana.geometry("300x300")
 
 #YA TENÍAMOS
 estadoLed1 = False
@@ -43,6 +43,7 @@ estadoLed1 = False
 #agregamos variables de estado para LED2 y LED3
 estadoLed2 = False
 estadoLed3 = False
+estadoLed123 = False
 
 #YA TENÍAMOS
 def leerMensajeArduino():
@@ -95,7 +96,19 @@ def controlBoton3():
 
     lblmensaje.config(text=leerMensajeArduino())
 
+def controlBoton123():
+    global estadoLed123
 
+    if estadoLed123:
+        estadoLed123 = False
+        botonLed123.config(text="Encender LED 1, 2,3")
+        arduino.write(b'D')  # Comando para apagar LED 123
+    else:
+        estadoLed123 = True
+        botonLed123.config(text="Apagar LED 1, 2, 3")
+        arduino.write(b'd')  # Comando para encender LED 3
+
+    lblmensaje.config(text=leerMensajeArduino())
 
 #YA TENÍAMOS
 botonLed1 = tk.Button(
@@ -125,9 +138,18 @@ botonLed3 = tk.Button(
 )
 botonLed3.place(x=70, y=130)
 
+botonLed123 = tk.Button(
+    ventana,
+    text="Encender LED 1, 2, 3",
+    font=("Arial", 12),
+    width=16,
+    command=controlBoton123
+)
+botonLed123.place(x=70, y=180)
+
 
 #YA TENÍAMOS
 lblmensaje = tk.Label(ventana, text="-", font=("Arial", 10, "italic"))
-lblmensaje.place(x=40, y=190)
+lblmensaje.place(x=40, y=240)
 
 ventana.mainloop()
