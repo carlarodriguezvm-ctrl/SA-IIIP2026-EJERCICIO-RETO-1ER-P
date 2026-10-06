@@ -4,20 +4,19 @@ import time
 from unittest.mock import MagicMock  # Permite simular el puerto serie sin Arduino físico
 
 
-MODO_SIMULACION = True  # <-- Cambia a False cuando conectemos el Arduino real
+MODO_SIMULACION = True  # <Cambia a False cuando conectemos el Arduino real
 
 puertoCom = "COM5" 
 
 if not MODO_SIMULACION:
-    # --- LO QUE YA TENÍAMOS: Conexión real con el Arduino ---
+    #YA TENÍAMOS
     arduino = Serial(port=puertoCom, baudrate=9600, timeout=1)
     time.sleep(2)
 else:
-    # --- SIMULACIÓN (Para probar sin la placa física) ---
+    #simulacion
     print("PROBANDO EN MODO SIMULACIÓN (Sin Arduino físico)")
     arduino = MagicMock()
     
-    # Simula la respuesta exacta que enviaría el Arduino al recibir cada letra
     def simular_respuesta_arduino(comando_bytes):
         respuestas = {
             b'a': b'LED 1 encendido\n',
@@ -33,26 +32,26 @@ else:
     # Vincula la escritura serial con la respuesta simulada
     arduino.write.side_effect = simular_respuesta_arduino
 
-# INTERFAZ GRÁFICA (TKINTER)
+#YA TENÍAMOS
 ventana = tk.Tk()
 ventana.title("Control de LEDs")
 ventana.geometry("300x260")
 
-#Teniamos todo lo relacionado con LED1 
-estadoLed1 = False
+#YA TENÍAMOS
+# estadoLed1 = False
 
 #agregamos variables de estado para LED2 y LED3
 estadoLed2 = False
 estadoLed3 = False
 
-# --- LO QUE YA TENÍAMOS: Función para leer lo que responde el Arduino ---
+#YA TENÍAMOS
 def leerMensajeArduino():
     mensajeLed = arduino.readline().decode().strip()
     print("Respuesta recibida del Arduino:", mensajeLed)
     return mensajeLed
 
 
-# --- LO QUE YA TENÍAMOS: Control del Botón 1 ---
+#YA TENÍAMOS
 def controlBoton1():
     global estadoLed1
 
@@ -67,7 +66,7 @@ def controlBoton1():
 
     lblmensaje.config(text=leerMensajeArduino())
 
-# --- LO QUE AGREGAMOS: Control del Botón 2 ---
+#YA TENÍAMOS
 def controlBoton2():
     global estadoLed2
 
@@ -98,7 +97,7 @@ def controlBoton3():
 
 
 
-#YA TENÍAMOS: Botón para el LED 1 y agregue para boton 2 y 3
+#YA TENÍAMOS
 botonLed1 = tk.Button(
     ventana,
     text="Encender LED 1",
@@ -127,7 +126,7 @@ botonLed3 = tk.Button(
 botonLed3.place(x=70, y=130)
 
 
-#LO QUE YA TENÍAMOS: Etiqueta para mostrar los mensajes recibidos
+#YA TENÍAMOS
 lblmensaje = tk.Label(ventana, text="-", font=("Arial", 10, "italic"))
 lblmensaje.place(x=40, y=190)
 
