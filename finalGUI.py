@@ -38,7 +38,7 @@ ventana.title("Control de LEDs")
 ventana.geometry("300x260")
 
 #YA TENÍAMOS
-# estadoLed1 = False
+estadoLed1 = False
 
 #agregamos variables de estado para LED2 y LED3
 estadoLed2 = False
